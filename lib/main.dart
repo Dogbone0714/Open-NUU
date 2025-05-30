@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'providers/news_provider.dart';
+import 'models/news_item.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -517,108 +518,40 @@ class _CampusNewsPageState extends State<CampusNewsPage> {
   }
 }
 
-class NewsItem {
-  final String title;
-  final String category;
-  final String date;
-  final String description;
-  final String content;
-  final List<String>? attachments;
-  final String? imageUrl;
-  final String? link;
-
-  const NewsItem({
-    required this.title,
-    required this.category,
-    required this.date,
-    required this.description,
-    required this.content,
-    this.attachments,
-    this.imageUrl,
-    this.link,
-  });
+// 添加工具方法
+IconData getCategoryIcon(String category) {
+  switch (category) {
+    case '聯大新聞':
+      return Icons.newspaper;
+    case '註冊組':
+      return Icons.school;
+    case '獎助學金':
+      return Icons.attach_money;
+    case '徵人啟事':
+      return Icons.work;
+    case '校園活動':
+      return Icons.event;
+    default:
+      return Icons.article;
+  }
 }
 
-// 修改新聞資料
-final List<NewsItem> nuuNews = [
-  NewsItem(
-    category: '聯大新聞',
-    title: '國立聯合大學113學年度畢業典禮溫馨舉行!逾兩千名學子揚帆啟程',
-    date: '2025/05/24',
-    description: '國立聯合大學113學年度畢業典禮圓滿舉行，超過兩千名畢業生參與這個重要時刻。',
-    content: '國立聯合大學113學年度畢業典禮\n\n'
-        '時間：113年5月24日\n'
-        '地點：八甲校區活動中心\n\n'
-        '活動亮點：\n'
-        '1. 逾兩千名畢業生參與\n'
-        '2. 校長勉勵致詞\n'
-        '3. 各系所畢業生代表致詞\n'
-        '4. 畢業生撥穗儀式\n'
-        '5. 溫馨感人的畢業歌曲演唱',
-    link: 'https://www.nuu.edu.tw/p/422-1000-1076.php?Lang=zh-tw',
-  ),
-  NewsItem(
-    category: '聯大新聞',
-    title: '官股八大銀行行員齊聚助陣!聯大財金系招生展現亮眼實力',
-    date: '2025/05/19',
-    description: '國立聯合大學財務金融學系舉辦招生說明會，邀請八大官股銀行代表分享職涯經驗。',
-    content: '財金系招生說明會\n\n'
-        '活動重點：\n'
-        '1. 八大官股銀行行員現身分享\n'
-        '2. 職涯發展經驗談\n'
-        '3. 產學合作機會介紹\n'
-        '4. 實習計畫說明',
-    link: 'https://www.nuu.edu.tw/p/422-1000-1076.php?Lang=zh-tw',
-  ),
-  NewsItem(
-    category: '聯大新聞',
-    title: '聯合大學創校校長金重勳教授辭世‧校方將舉辦追思會緬懷其一生貢獻',
-    date: '2025/05/19',
-    description: '國立聯合大學創校校長金重勳教授辭世，校方將舉辦追思會，緬懷其對學校的重大貢獻。',
-    content: '創校校長金重勳教授追思會\n\n'
-        '時間：待定\n'
-        '地點：待定\n\n'
-        '金重勳教授貢獻：\n'
-        '1. 創校時期的重要領導者\n'
-        '2. 奠定學校發展基礎\n'
-        '3. 推動多項重要教育改革\n'
-        '4. 建立國際學術交流網絡',
-    link: 'https://www.nuu.edu.tw/p/422-1000-1076.php?Lang=zh-tw',
-  ),
-  NewsItem(
-    category: '聯大新聞',
-    title: '校長盃系列運動競賽完美落幕！寫下大學生活精采篇章',
-    date: '2025/05/16',
-    description: '國立聯合大學校長盃系列運動競賽圓滿結束，展現學生活力與團隊精神。',
-    content: '校長盃系列運動競賽\n\n'
-        '競賽項目：\n'
-        '1. 籃球賽\n'
-        '2. 排球賽\n'
-        '3. 羽球賽\n'
-        '4. 桌球賽\n'
-        '5. 田徑賽\n\n'
-        '活動特色：\n'
-        '1. 促進系際交流\n'
-        '2. 培養運動精神\n'
-        '3. 展現團隊合作',
-    link: 'https://www.nuu.edu.tw/p/422-1000-1076.php?Lang=zh-tw',
-  ),
-  NewsItem(
-    category: '聯大新聞',
-    title: '聯大勤耕STEM+A有成 !女性研究人才巴黎爭光',
-    date: '2025/05/15',
-    description: '本校在STEM+A領域的女性研究人才在巴黎國際研討會上展現傑出成果。',
-    content: 'STEM+A國際研討會\n\n'
-        '地點：法國巴黎\n'
-        '參與人員：本校女性研究團隊\n\n'
-        '研究成果：\n'
-        '1. 跨領域創新研究\n'
-        '2. 國際學術交流\n'
-        '3. 促進性別平等\n'
-        '4. 提升國際能見度',
-    link: 'https://www.nuu.edu.tw/p/422-1000-1076.php?Lang=zh-tw',
-  ),
-];
+String getDefaultDescription(String category) {
+  switch (category) {
+    case '聯大新聞':
+      return '最新校園新聞與公告';
+    case '註冊組':
+      return '註冊相關事項與規定';
+    case '獎助學金':
+      return '獎助學金申請資訊';
+    case '徵人啟事':
+      return '校內外工作機會';
+    case '校園活動':
+      return '近期校園活動資訊';
+    default:
+      return '校園公告資訊';
+  }
+}
 
 class NewsDetailPage extends StatelessWidget {
   final String title;
