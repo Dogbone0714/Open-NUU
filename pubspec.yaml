@@ -78,6 +78,8 @@ flutter:
     - assets/images/menu_starsky_1.jpg
     - assets/images/menu_qiaolin_1.jpg
     - assets/images/menu_qiaolin_2.jpg
+    - assets/images/menu_lianzhuang_1.jpg
+    - assets/images/menu_vegan_1.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
