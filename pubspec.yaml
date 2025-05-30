@@ -73,8 +73,11 @@ flutter:
     - assets/images/
     - assets/images/bus_schedule_1.png
     - assets/images/bus_schedule_2.png
-    - assets/images/bus_schedule_3.png
-    - assets/images/bus_schedule_4.png
+    - assets/images/menu_shizao_1.jpg
+    - assets/images/menu_pengba_1.jpg
+    - assets/images/menu_starsky_1.jpg
+    - assets/images/menu_qiaolin_1.jpg
+    - assets/images/menu_qiaolin_2.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

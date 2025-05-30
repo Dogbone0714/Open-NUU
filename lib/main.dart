@@ -135,7 +135,7 @@ class MainPage extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              '開始建立您的應用程式',
+              '開始使用您的應用程式',
               style: TextStyle(fontSize: 16),
             ),
           ],
@@ -173,9 +173,15 @@ class MenuPage extends StatelessWidget {
             leading: Icon(Icons.campaign_outlined),
             title: Text('校園公告'),
           ),
-          const ListTile(
-            leading: Icon(Icons.restaurant_menu_outlined),
-            title: Text('餐廳資訊'),
+          ListTile(
+            leading: const Icon(Icons.restaurant_menu_outlined),
+            title: const Text('餐廳資訊'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const RestaurantPage()),
+              );
+            },
           ),
           ListTile(
             leading: const Icon(Icons.departure_board_outlined),
@@ -188,6 +194,713 @@ class MenuPage extends StatelessWidget {
             },
           ),
         ],
+      ),
+    );
+  }
+}
+
+class RestaurantPage extends StatelessWidget {
+  const RestaurantPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('餐廳資訊'),
+        elevation: 0,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Text(
+              '請選擇校區',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 32),
+            _buildCampusCard(
+              context,
+              '二坪山校區',
+              Icons.location_city,
+              const ErpingRestaurantPage(),
+            ),
+            const SizedBox(height: 16),
+            _buildCampusCard(
+              context,
+              '八甲校區',
+              Icons.apartment,
+              const BajiaRestaurantPage(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCampusCard(
+    BuildContext context,
+    String title,
+    IconData icon,
+    Widget page,
+  ) {
+    return Card(
+      elevation: 4,
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => page),
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Row(
+            children: [
+              Icon(
+                icon,
+                size: 48,
+                color: Theme.of(context).primaryColor,
+              ),
+              const SizedBox(width: 24),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      '點擊查看詳細資訊',
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(
+                Icons.arrow_forward_ios,
+                color: Theme.of(context).primaryColor,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ErpingRestaurantPage extends StatelessWidget {
+  const ErpingRestaurantPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('二坪山校區餐廳'),
+        elevation: 0,
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(16.0),
+        children: [
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ErpingStudentRestaurantPage()),
+              );
+            },
+            child: _buildRestaurantCard(
+              '二坪學生餐廳',
+              '位於紅夢樓一樓',
+              [
+                '營業時間：',
+                '週一至週日',
+                '早餐 06:30-13:00',
+                '午餐 11:00-13:00',
+                '晚餐 16:50-19:00',
+                '',
+                '點擊查看店家詳細資訊',
+              ],
+              Icons.restaurant,
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LandscapeRestaurantPage()),
+              );
+            },
+            child: _buildRestaurantCard(
+              '景觀餐廳',
+              '位於好漢坡旁',
+              '營業時間：週一至週日 10:00-20:00\n點擊查看店家詳細資訊',
+              Icons.food_bank,
+            ),
+          ),
+          _buildRestaurantCard(
+            '二坪 7-11',
+            '位於操場旁、建築一館 1 F',
+            '營業時間：週一至週日 07:00-23:00',
+            Icons.store,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRestaurantCard(
+    String title,
+    String location,
+    dynamic hours,
+    IconData icon,
+  ) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 16),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(icon, size: 30),
+                const SizedBox(width: 16),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const Divider(height: 24),
+            Text(
+              location,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.black87,
+              ),
+            ),
+            const SizedBox(height: 8),
+            if (hours is String)
+              Text(
+                hours,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Colors.black54,
+                ),
+              )
+            else if (hours is List<String>)
+              ...hours.map((line) => Padding(
+                    padding: const EdgeInsets.only(bottom: 4),
+                    child: Text(
+                      line,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: line.endsWith('：') ? Colors.black87 : Colors.black54,
+                        fontWeight: line.endsWith('：') ? FontWeight.bold : FontWeight.normal,
+                      ),
+                    ),
+                  )),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ErpingStudentRestaurantPage extends StatelessWidget {
+  const ErpingStudentRestaurantPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('二坪學生餐廳'),
+        elevation: 0,
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(16.0),
+        children: [
+          _buildShopCard(
+            '巧麟中西式早餐店',
+            [
+              '位置：紅夢樓一樓',
+              '營業時間：',
+              '週一至週五 06:30-13:00',
+              '假日 07：00－10：30',
+              '主打特色：',
+              '漢堡、三明治、蛋餅',
+              '麵食、飯類、咖啡、奶茶',
+            ],
+            Icons.breakfast_dining,
+            const ['assets/images/menu_qiaolin_1.jpg', 'assets/images/menu_qiaolin_2.jpg'],
+          ),
+          _buildShopCard(
+            '蓮莊餐飲',
+            [
+              '位置：紅夢樓一樓',
+              '營業時間：',
+              '週一至週五',
+              '午餐 11:00-13:30',
+              '晚餐 16:50-18:30',
+              '',
+              '主打特色：',
+              '自助餐、便當',
+              '每日特餐、湯品',
+            ],
+            Icons.lunch_dining,
+          ),
+          _buildShopCard(
+            '小食堂滷味&飲品',
+            [
+              '位置：紅夢樓一樓',
+              '營業時間：',
+              '週一至週五 10:00-19:00',
+              '',
+              '主打特色：',
+              '各式滷味、關東煮',
+              '飲品、茶類',
+            ],
+            Icons.soup_kitchen,
+          ),
+          _buildShopCard(
+            '荷香園-麵麵聚到',
+            [
+              '位置：紅夢樓一樓',
+              '營業時間：',
+              '週一至週五',
+              '午餐 11:00-13:30',
+              '晚餐 16:50-18:30',
+              '',
+              '主打特色：',
+              '各式麵食、湯麵',
+              '小菜、滷味',
+            ],
+            Icons.ramen_dining,
+          ),
+          _buildShopCard(
+            '凍心炸冰淇淋',
+            [
+              '位置：紅夢樓一樓',
+              '營業時間：',
+              '週一至週五 11:00-18:00',
+              '',
+              '主打特色：',
+              '炸冰淇淋、雪花冰',
+              '特調飲品',
+            ],
+            Icons.icecream,
+          ),
+          _buildShopCard(
+            '愛在蔬食',
+            [
+              '位置：紅夢樓一樓',
+              '營業時間：',
+              '週一至週五',
+              '午餐 11:00-13:30',
+              '晚餐 16:50-18:30',
+              '',
+              '主打特色：',
+              '蔬食自助餐、素食便當',
+              '健康養生餐點',
+            ],
+            Icons.eco,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildShopCard(String title, List<String> content, IconData icon, [List<String>? menuImages]) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 16),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(icon, size: 30, color: Colors.orange),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const Divider(height: 24),
+            ...content.map((line) => Padding(
+                  padding: const EdgeInsets.only(bottom: 4),
+                  child: Text(
+                    line,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: line.endsWith('：') ? Colors.black87 : Colors.black54,
+                      fontWeight: line.endsWith('：') ? FontWeight.bold : FontWeight.normal,
+                    ),
+                  ),
+                )),
+            if (menuImages != null) ...[
+              const SizedBox(height: 16),
+              const Text(
+                '菜單預覽：',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 8),
+              SizedBox(
+                height: 200,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: menuImages.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ImageViewPage(
+                                imageUrl: menuImages[index],
+                                title: '$title - 菜單 ${index + 1}',
+                              ),
+                            ),
+                          );
+                        },
+                        child: Hero(
+                          tag: menuImages[index],
+                          child: Container(
+                            width: 150,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  blurRadius: 4,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.asset(
+                                menuImages[index],
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Container(
+                                    color: Colors.grey[300],
+                                    child: const Icon(
+                                      Icons.image_not_supported,
+                                      color: Colors.grey,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class LandscapeRestaurantPage extends StatelessWidget {
+  const LandscapeRestaurantPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('景觀餐廳'),
+        elevation: 0,
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(16.0),
+        children: [
+          _buildShopCard(
+            context,
+            '石灶麻辣',
+            [
+              '位於景觀餐廳一樓後棟'
+              '營業時間：',
+              '週一至週日 10:00-20:00',
+              '',
+            ],
+            Icons.whatshot,
+            const ['assets/images/menu_shizao_1.jpg'],
+          ),
+          _buildShopCard(
+            context,
+            '彭爸麵食館',
+            [
+              '位於景觀餐廳二樓',
+              '營業時間：',
+              '週一至週六 午晚餐',
+              '',
+            ],
+            Icons.ramen_dining,
+            const ['assets/images/menu_pengba_1.jpg'],
+          ),
+          _buildShopCard(
+            context,
+            '星空下複合式餐飲',
+            [
+              '位於景觀餐廳 1 F',
+              '營業時間：',
+              '週一至週日 10:30-20:00',
+              '**星期六公休',
+            ],
+            Icons.restaurant_menu,
+            const ['assets/images/menu_starsky_1.jpg'],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildShopCard(
+    BuildContext context,
+    String title,
+    List<String> content,
+    IconData icon,
+    List<String>? menuImages,
+  ) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 16),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(icon, size: 30, color: Colors.orange),
+                const SizedBox(width: 16),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const Divider(height: 24),
+            ...content.map((line) => Padding(
+                  padding: const EdgeInsets.only(bottom: 4),
+                  child: Text(
+                    line,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: line.endsWith('：') ? Colors.black87 : Colors.black54,
+                      fontWeight: line.endsWith('：') ? FontWeight.bold : FontWeight.normal,
+                    ),
+                  ),
+                )),
+            if (menuImages != null) ...[
+              const SizedBox(height: 16),
+              const Text(
+                '菜單預覽：',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 8),
+              SizedBox(
+                height: 200,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: menuImages.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ImageViewPage(
+                                imageUrl: menuImages[index],
+                                title: '$title - 菜單 ${index + 1}',
+                              ),
+                            ),
+                          );
+                        },
+                        child: Hero(
+                          tag: menuImages[index],
+                          child: Container(
+                            width: 150,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  blurRadius: 4,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.asset(
+                                menuImages[index],
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Container(
+                                    color: Colors.grey[300],
+                                    child: const Icon(
+                                      Icons.image_not_supported,
+                                      color: Colors.grey,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ImageViewPage extends StatelessWidget {
+  final String imageUrl;
+  final String title;
+
+  const ImageViewPage({
+    Key? key,
+    required this.imageUrl,
+    required this.title,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+        elevation: 0,
+      ),
+      body: Center(
+        child: InteractiveViewer(
+          minScale: 0.5,
+          maxScale: 4.0,
+          child: Hero(
+            tag: imageUrl,
+            child: Image.asset(
+              imageUrl,
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class BajiaRestaurantPage extends StatelessWidget {
+  const BajiaRestaurantPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('八甲校區餐廳'),
+        elevation: 0,
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(16.0),
+        children: [
+          _buildRestaurantCard(
+            '八甲學生餐廳',
+            '位於學生活動中心',
+            '營業時間：週一至週五 07:00-19:00',
+            Icons.restaurant,
+          ),
+          _buildRestaurantCard(
+            '八甲 7-11',
+            '位於理工學院一館 1 F',
+            '營業時間：週一至週日 07:00-23:00',
+            Icons.store,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRestaurantCard(
+    String title,
+    String location,
+    String hours,
+    IconData icon,
+  ) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 16),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(icon, size: 30),
+                const SizedBox(width: 16),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const Divider(height: 24),
+            Text(location),
+            const SizedBox(height: 8),
+            Text(hours),
+          ],
+        ),
       ),
     );
   }
