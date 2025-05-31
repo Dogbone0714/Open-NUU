@@ -6,7 +6,8 @@ import 'models/news_item.dart';
 import 'pages/login_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MultiProvider(
       providers: [
@@ -176,11 +177,11 @@ class MenuPage extends StatelessWidget {
         children: [
           const ListTile(
             leading: Icon(Icons.calendar_month_outlined),
-            title: Text('課表查詢'),
+            title: Text('課表查詢 (未完成)'),
           ),
           const ListTile(
             leading: Icon(Icons.score_outlined),
-            title: Text('成績查詢'),
+            title: Text('成績查詢 (未完成)'),
           ),
           const ListTile(
             leading: Icon(Icons.event_note_outlined),
