@@ -3,9 +3,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'providers/news_provider.dart';
 import 'models/news_item.dart';
+import 'pages/login_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MultiProvider(
       providers: [
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Open NUU',
+      title: '國立聯合大學學生資訊平台',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
         Locale('zh', 'TW'),
         Locale('en', 'US'),
       ],
-      home: const HomePage(),
+      home: const LoginPage(),
     );
   }
 }
@@ -157,6 +158,13 @@ class MainPage extends StatelessWidget {
 class MenuPage extends StatelessWidget {
   const MenuPage({Key? key}) : super(key: key);
 
+  Future<void> _launchUrl(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      throw Exception('無法開啟網頁: $url');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -207,6 +215,38 @@ class MenuPage extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const BusSchedulePage()),
               );
             },
+          ),
+          const Divider(),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
+            child: Text(
+              '快速連結',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey,
+              ),
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.school_outlined),
+            title: const Text('聯大首頁'),
+            onTap: () => _launchUrl('https://www.nuu.edu.tw'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.library_books_outlined),
+            title: const Text('微課程'),
+            onTap: () => _launchUrl('https://webap2.nuu.edu.tw/~mcc/index.php/auth/sso_login'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.computer_outlined),
+            title: const Text('校務資訊系統'),
+            onTap: () => _launchUrl('https://eap10.nuu.edu.tw/Login.aspx?logintype=S'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.wifi_outlined),
+            title: const Text('聯合數位學園'),
+            onTap: () => _launchUrl('https://elearning.nuu.edu.tw/mooc/index.php'),
           ),
         ],
       ),
@@ -440,7 +480,7 @@ class _CampusNewsPageState extends State<CampusNewsPage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => NewsDetailPage(
-                    title: '${category}標題 ${index + 1}',
+                    title: '$category標題 ${index + 1}',
                     category: category,
                   ),
                 ),
@@ -492,7 +532,7 @@ class _CampusNewsPageState extends State<CampusNewsPage> {
                   ),
                   const SizedBox(height: 8.0),
                   Text(
-                    '${category}標題 ${index + 1}',
+                    '$category標題 ${index + 1}',
                     style: const TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,

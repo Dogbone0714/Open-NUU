@@ -1,70 +1,16 @@
-# 國立聯合大學非官方校園 APP (Open NUU)
+# open_nuu
 
-<p align="center">
-  <img src="assets/images/app_logo.png" alt="Open NUU Logo" width="200"/>
-</p>
+A new Flutter project.
 
-## 📱 專案簡介
+## Getting Started
 
-Open NUU 是一款專為國立聯合大學學生設計的非官方校園資訊整合平台。本應用程式旨在提供更便捷的校園資訊查詢體驗，協助學生更有效率地獲取所需資訊。
+This project is a starting point for a Flutter application.
 
-### 開發者資訊
-- 開發者：康康 Dogbone0714
-- 系級：110級文創系
-- 開發時間：2025
+A few resources to get you started if this is your first Flutter project:
 
-## 🌟 主要功能
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-- 📚 課表查詢與管理
-- 📝 成績查詢
-- 🏫 校園地圖導航
-- 📢 最新校園公告
-- 🍽️ 校園餐廳資訊
-- 📅 行事曆整合
-- 🚌 校車時刻表
-
-## 🛠 技術規格
-
-- Flutter 3.0+
-- Dart SDK: ">=3.0.0 <4.0.0"
-- 支援 Android 與 iOS 平台
-- Material Design 3.0 設計規範
-- 支援繁體中文介面  ( 暫不支援英文介面 )
-
-## 📥 安裝方式
-
-### Android
-1. 從 Release 頁面下載最新的 APK
-2. 在手機上安裝 APK 檔案
-3. 開啟應用程式並登入
-
-### iOS
-> 目前尚未上架 App Store，敬請期待
-
-## 🔒 隱私聲明
-
-本應用程式為非官方開發，僅提供便利的校園資訊查詢服務。所有用戶資料皆經過加密處理，不會被用於其他用途。
-
-## ⚠️ 免責聲明
-
-1. 本應用程式為非官方開發，與國立聯合大學官方無關
-2. 應用程式內顯示的資訊僅供參考，正確資訊請以學校官方網站為準
-3. 開發團隊保留應用程式更新及維護的權利
-
-## 🤝 參與貢獻
-
-歡迎提交 Issue 或 Pull Request 來協助改善這個專案！
-
-## 📫 聯絡方式
-
-如有任何問題或建議，歡迎透過以下方式聯繫：
-- Email：0714@hhk.one
-- GitHub：Dogbone0714
-
-## 📄 授權條款
-
-本專案採用 MIT 授權條款 - 詳見 [LICENSE](LICENSE) 檔案
-
----
-
-**備註：** 這是一個開源專案，歡迎其他開發者參與貢獻，一起打造更好的校園資訊平台！
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
