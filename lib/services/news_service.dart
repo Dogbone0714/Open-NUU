@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' show parse;
 import '../models/news_item.dart';
